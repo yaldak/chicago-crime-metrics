@@ -55,19 +55,46 @@ public final class CsvSpliterator extends Spliterators.AbstractSpliterator<CsvSp
     }
 
     private Optional<CsvRecord> tryParseRecord(final String s) {
-        Objects.requireNonNull(s);
-
         List<String> values = new ArrayList<>();
 
         boolean inQuoteBlock = false;
-        for (int i = 0; i < s.length(); i++) {
-            // TODO(@ykako): parse here
-        }
+        boolean isLastCharQuote = false;
+        int blockStart = 0;
 
-        // TODO(@ykako): fix me
-        values.add(0, "This");
-        values.add(1, "Is");
-        values.add(2, "A Test");
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+
+            if (c == '\"') {
+                if (isLastCharQuote) {
+                    // This is an escaped quote character
+                    isLastCharQuote = false;
+                    continue;
+                }
+
+                if (inQuoteBlock) {
+                    // This is the end of a quote block
+                    values.add(s.substring(blockStart + 1, i));
+
+                    inQuoteBlock = false;
+                } else {
+                    // This is the start of a quote block
+                    isLastCharQuote = true;
+                    inQuoteBlock = true;
+                }
+            } else if (i == s.length() - 1) {
+                // This is the end of the line
+                if (c != ',') {
+                    // XXX What if this is a quoted block
+                    values.add(s.substring(blockStart, i + 1).trim());
+                }
+            } else if (c == ',' && !inQuoteBlock) {
+                values.add(s.substring(blockStart, i).trim());
+
+                blockStart = i + 1;
+            } else {
+                isLastCharQuote = false;
+            }
+        }
 
         return Optional.of(new CsvRecord(Collections.unmodifiableList(values)));
     }
@@ -88,6 +115,8 @@ public final class CsvSpliterator extends Spliterators.AbstractSpliterator<CsvSp
     }
 
     public static Stream<CsvRecord> stream(final Reader reader, final boolean withHeader) {
+        Objects.requireNonNull(reader);
+
         return StreamSupport.stream(CsvSpliterator.from(reader, withHeader), false);
     }
 }

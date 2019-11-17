@@ -1,0 +1,5 @@
+Field 1, Field 2, Field 3
+"Quoted Value", 1.23, 555
+"Escaped Quotes Inside "lol""", 6, 3
+"Escaped Quotes Inside ""lol""", 6, 3
+"Escaped Quotes Inside ""lololol", 6, 3
