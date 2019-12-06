@@ -17,7 +17,7 @@ Investigate [City of Chicago - Crime Data from 2011 - Present](https://data.city
 
 ## Requirements
 ### Content to Implement - How we will implement it
-- [ ] Interfaces -
+- [ ] Interfaces - Functional Interface (maybe with Binary)
 - [ ] Binary I/O - Saving plots
 - [x] Generics - Saving the data
 - [x] Collections - Saving the data
