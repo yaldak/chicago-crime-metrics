@@ -18,9 +18,7 @@ public class MainApplication extends Application {
     public void start(final Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(this.getClass().getResource("/fxml/MainScene.fxml"));
-
-        VBox mainSceneLayoutRoot = loader.load();
-        Scene mainScene = new Scene(mainSceneLayoutRoot);
+        Scene mainScene = new Scene(loader.load());
 
         primaryStage.setScene(mainScene);
         primaryStage.setTitle(TITLE);
