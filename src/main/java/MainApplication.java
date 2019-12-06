@@ -28,17 +28,15 @@ public class MainApplication extends Application {
 
     @Override
     public void start(final Stage primaryStage) throws IOException {
-        // Load root layout from fxml file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApplication.class.getResource("view/MainScene.fxml"));
         VBox rootLayout = loader.load();
 
-        // XXX: Intellij hates this line
+        // XXX: Unsafe
         BarChart<String, Number> barChart = (BarChart<String, Number>) rootLayout.lookup("#exampleBarChart");
         System.out.println(Objects.nonNull(barChart));
         generateBarChartData().forEach(series -> barChart.getData().add(series));
 
-        // Show the scene containing the root layout.
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
         primaryStage.setTitle(TITLE);
@@ -49,9 +47,14 @@ public class MainApplication extends Application {
         List<CrimeRecord> crimeRecords =
                 RecordReader.readCrimeRecords(this.getClass().getResourceAsStream("crime-50k.json"));
 
-        List<Integer> distinctMonths = crimeRecords.parallelStream()
+        // XXX Debugging
+        crimeRecords.parallelStream()
+                .limit(30)
+                .forEach(System.out::println);
+
+        List<String> distinctMonths = crimeRecords.parallelStream()
                 .filter(r -> Objects.nonNull(r.date))
-                .map(r -> r.date.getMonth()) // XXX: FIXME this is deprecated
+                .map(r -> r.date.getMonth().toString())
                 .distinct()
                 .sorted()
                 .collect(Collectors.toList());
@@ -62,11 +65,11 @@ public class MainApplication extends Application {
                     XYChart.Series series = new XYChart.Series();
 
                     long crimesInMonth = crimeRecords.parallelStream()
-                            .filter(r -> Objects.nonNull(r.date) && r.date.getMonth() == month)
+                            .filter(r -> Objects.nonNull(r.date) && r.date.getMonth().toString().equals(month))
                             .count();
 
-                    // XXX: Intellij hates this line
-                    series.getData().add(new XYChart.Data(MONTH_TO_STRING[month], (int) crimesInMonth));
+                    // XXX: Unsafe
+                    series.getData().add(new XYChart.Data(month.toString(), (int) crimesInMonth));
 
                     return series;
                 })
@@ -110,19 +113,4 @@ public class MainApplication extends Application {
     private void handleAboutAction(final ActionEvent event) {
         System.out.println("You clicked the about button. Good for you.");
     }
-
-    public static final String[] MONTH_TO_STRING = {
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"
-    };
 }

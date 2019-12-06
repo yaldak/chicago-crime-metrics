@@ -1,6 +1,6 @@
 package records;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 public class CrimeRecord {
@@ -18,7 +18,7 @@ public class CrimeRecord {
 
     public int id;
     public String caseNumber;
-    public Date date;
+    public ZonedDateTime date;
     public String block;
     public String iucr;
     public String primaryType;
@@ -34,7 +34,7 @@ public class CrimeRecord {
     public int xCoordinate;
     public int yCoordinate;
     public int year;
-    public Date updatedOn;
+    public ZonedDateTime updatedOn;
     public Location location;
 
     @Override
