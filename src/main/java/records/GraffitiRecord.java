@@ -1,9 +1,9 @@
 package records;
 
 public class GraffitiRecord {
-    String week;
-    double averageDays;
-    int totalCompleted;
-    int medianDays;
-    int targetDays;
+    public String week;
+    public double averageDays;
+    public int totalCompleted;
+    public int medianDays;
+    public int targetDays;
 }

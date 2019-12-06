@@ -24,7 +24,6 @@ public class DateDeserializer implements JsonDeserializer<Date> {
             return format.parse(date);
         } catch (ParseException e) {
             // System.err.println(e.getMessage());
-
             return null;
         }
     }

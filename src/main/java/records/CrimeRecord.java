@@ -5,36 +5,37 @@ import java.util.Objects;
 
 public class CrimeRecord {
     class Location {
-        double latitude;
-        double longitude;
-        String humanAddress;
+        public double latitude;
+        public double longitude;
+        public String humanAddress;
 
         @Override
         public String toString() {
-            return "Location{" + "latitude=" + latitude + ", longitude=" + longitude + ", humanAddress='" + humanAddress + '\'' + '}';
+            return "Location{" + "latitude=" + latitude + ", longitude=" + longitude +
+                    ", humanAddress='" + humanAddress + '\'' + '}';
         }
     }
 
-    int id;
-    String caseNumber;
-    Date date;
-    String block;
-    String iucr;
-    String primaryType;
-    String description;
-    String locationDescription;
-    boolean arrest;
-    boolean domestic;
-    int beat;
-    int district;
-    int ward;
-    int communityArea;
-    String fbiCode;
-    int xCoordinate;
-    int yCoordinate;
-    int year;
-    Date updatedOn;
-    Location location;
+    public int id;
+    public String caseNumber;
+    public Date date;
+    public String block;
+    public String iucr;
+    public String primaryType;
+    public String description;
+    public String locationDescription;
+    public boolean arrest;
+    public boolean domestic;
+    public int beat;
+    public int district;
+    public int ward;
+    public int communityArea;
+    public String fbiCode;
+    public int xCoordinate;
+    public int yCoordinate;
+    public int year;
+    public Date updatedOn;
+    public Location location;
 
     @Override
     public String toString() {

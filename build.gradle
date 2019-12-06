@@ -21,7 +21,7 @@ dependencies {
 }
 
 javafx {
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 mainClassName = 'MainApplication'

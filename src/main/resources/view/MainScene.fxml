@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainApplication">
+  <children>
+    <MenuBar fx:id="menuBar" prefWidth="392.0" VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handleAboutAction" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <TextField prefHeight="27.0" prefWidth="219.0" text="hello this is a fake text field and if you type here, nothing will happen, you lose lol" />
+      <BarChart id="exampleBarChart" title="Crimes per Month">
+        <xAxis>
+          <CategoryAxis label="Month" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Crimes" side="LEFT" />
+        </yAxis>
+      </BarChart>
+  </children>
+</VBox>
