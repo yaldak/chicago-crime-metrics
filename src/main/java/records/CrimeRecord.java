@@ -1,3 +1,5 @@
+package records;
+
 public class CrimeRecord {
     int id;
     String caseNumber;

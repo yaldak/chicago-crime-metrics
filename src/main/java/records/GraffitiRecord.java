@@ -1,3 +1,5 @@
+package records;
+
 public class GraffitiRecord {
     String week;
     double averageDays;
