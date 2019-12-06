@@ -3,8 +3,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import util.RecordReader;
 
-import java.io.InputStreamReader;
+import java.io.IOException;
 
 public class MainApplication extends Application {
     public static final String TITLE = "Graffiti Metrics";
@@ -18,8 +19,12 @@ public class MainApplication extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
-        // TODO(@ykako): Remove this. Just testing CSV reader.
-        testCsvSpliterator();
+        // TODO(@ykako): Remove this. Just testing record reading.
+        try {
+            testRecordRead();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         StackPane root = new StackPane();
 
@@ -34,14 +39,9 @@ public class MainApplication extends Application {
         primaryStage.show();
     }
 
-    // TODO(@ykako): Remove this. Just testing CSV reader.
-    public void testCsvSpliterator() {
-        // XXX: getResource NPE
-        InputStreamReader reader = new InputStreamReader(this.getClass().getResourceAsStream("csv-test.csv"));
-                // new InputStreamReader(this.getClass().getResourceAsStream("graffiti-removal_11-16-2019.csv"));
-
-        CsvSpliterator.stream(reader, true)
-                .map(CsvSpliterator.CsvRecord::getValues)
+    // TODO(@ykako): Remove this. Just testing record reading.
+    public void testRecordRead() throws IOException {
+        RecordReader.readCrimeRecords(this.getClass().getResourceAsStream("crime.json"))
                 .forEach(System.out::println);
     }
 }
