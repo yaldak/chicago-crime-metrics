@@ -24,4 +24,5 @@ Investigate [City of Chicago - Crime Data from 2011 - Present](https://data.city
 - [ ] Nested Classes/Enums - 
 - [x] Streams - Getting the data
 - [x] Lambdas - Used in Streams 
+- [ ] GUI - JavaFx
 
