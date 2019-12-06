@@ -16,6 +16,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class RecordReader {
+    public static final String RSRC_CRIME_RECORDS = "/data/crime-50k.json";
+
+    public static List<CrimeRecord> readCrimeRecords() throws IOException {
+        return RecordReader.readCrimeRecords(new InputStreamReader(RecordReader.class
+                .getResourceAsStream(RSRC_CRIME_RECORDS)));
+    }
+
     public static List<CrimeRecord> readCrimeRecords(final InputStream input) throws IOException {
         Objects.requireNonNull(input);
 
