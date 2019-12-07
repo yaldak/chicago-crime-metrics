@@ -12,8 +12,8 @@ The city of Chicago is notoriously known for its crime and corruption. Some of t
 3. Is the difference satistically significantly from other crimes?
 
 ## Process and Methodology
-- [ ] Mock up JavaFx formatting
-- [ ] Specify types of data needed for plotting
+- [x] Mock up JavaFx formatting
+- [x] Specify types of data needed for plotting
 - [ ] Save plots 
 - [ ] Implement data filtering for graphs
 - [ ] Finish paper
