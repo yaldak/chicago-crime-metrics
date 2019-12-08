@@ -24,7 +24,7 @@
                      <children>
                         <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                            <children>
-                              <Label text="Chicago Crime Metrics">
+                              <Label text="Chicago Crime Metrics (Fall 2019)">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -79,6 +79,22 @@
                         <BarChart fx:id="crimesByDayOfWeekBarChart" layoutX="21.0" layoutY="24.0" prefHeight="400.0" prefWidth="729.0" title="Number of Crimes by Day of Week">
                            <xAxis>
                               <CategoryAxis label="Day of Week" side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="Number of Crimes" side="LEFT" />
+                           </yAxis>
+                        </BarChart>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="By Type">
+               <content>
+                  <AnchorPane minHeight="500.0" minWidth="800.0">
+                     <children>
+                        <BarChart fx:id="crimesByTypeBarChart" layoutX="21.0" layoutY="24.0" prefHeight="400.0" prefWidth="729.0" title="Number of Crimes by Type">
+                           <xAxis>
+                              <CategoryAxis label="Type" side="BOTTOM" />
                            </xAxis>
                            <yAxis>
                               <NumberAxis label="Number of Crimes" side="LEFT" />

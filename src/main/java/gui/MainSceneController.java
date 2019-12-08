@@ -5,9 +5,11 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.MenuBar;
 import data.JsonRecordReader;
+import records.CrimeRecord;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -29,8 +31,13 @@ public class MainSceneController {
     private BarChart<String, Number> crimesByDayOfWeekBarChart;
 
     @FXML
+    private BarChart<String, Number> crimesByTypeBarChart;
+
+    @FXML
     public void initialize() throws IOException {
-        List<ZonedDateTime> crimeDates = JsonRecordReader.fromDefaultSet().readCrimeRecords().parallelStream()
+        List<CrimeRecord> crimeRecords = JsonRecordReader.fromDefaultSet().readCrimeRecords();
+
+        List<ZonedDateTime> crimeDates = crimeRecords.parallelStream()
                 .map(r -> r.date)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
@@ -38,6 +45,9 @@ public class MainSceneController {
         initializeChart(crimesByMonthBarChart, crimeDates.parallelStream().map(ZonedDateTime::getMonth));
         initializeChart(crimesByDayOfMonthBarChart, crimeDates.parallelStream().map(ZonedDateTime::getDayOfMonth));
         initializeChart(crimesByDayOfWeekBarChart, crimeDates.parallelStream().map(ZonedDateTime::getDayOfWeek));
+        initializeChart(crimesByTypeBarChart, crimeRecords.parallelStream()
+                .map(r -> r.primaryType)
+                .filter(Objects::nonNull));
     }
 
     private static <T> void initializeChart(final BarChart<String, Number> chart, final Stream<T> recordStream) {
