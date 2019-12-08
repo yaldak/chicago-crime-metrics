@@ -14,8 +14,10 @@ import java.time.Month;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MainSceneController {
     @FXML
@@ -31,72 +33,41 @@ public class MainSceneController {
     private BarChart<String, Number> crimesByDayOfWeekBarChart;
 
     @FXML
-    public void initialize() {
-        try {
-            initializeCrimesByMonthBarChart();
-            initializeCrimesByDayOfMonthBarChart();
-            initializeCrimesByDayOfWeekBarChart();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void onAboutMenuItemAction(final ActionEvent event) {
-        System.out.println("About menu item clicked.");
-    }
-
-    private void initializeCrimesByMonthBarChart() throws IOException {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-
-        crimesByMonthBarChart.setLegendVisible(false);
-        crimesByMonthBarChart.getData().add(series);
+    public void initialize() throws IOException {
+        // XXX: Is declaring a checked IOException safe here?
 
         List<CrimeRecord> crimeRecords = RecordReader.readCrimeRecords();
 
-        crimeRecords.parallelStream()
+        initializeChart(crimesByMonthBarChart, crimeRecords.parallelStream()
                 .filter(r -> Objects.nonNull(r.date))
-                .map(r -> r.date.getMonth())
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .forEach((month, count) ->
-                        series.getData().add(new XYChart.Data<>(month.toString(), count)));
+                .map(r -> r.date.getMonth()), Comparator.comparing(k -> Month.valueOf(k)));
 
-        series.getData().sort(Comparator.comparing(d -> Month.valueOf(d.getXValue())));
+        initializeChart(crimesByDayOfMonthBarChart, crimeRecords.parallelStream()
+                .filter(r -> Objects.nonNull(r.date))
+                .map(r -> r.date.getDayOfMonth()), Comparator.comparingInt(k -> Integer.parseInt(k)));
+
+        initializeChart(crimesByDayOfWeekBarChart, crimeRecords.parallelStream()
+                .filter(r -> Objects.nonNull(r.date))
+                .map(r -> r.date.getDayOfWeek()), Comparator.comparing(k -> DayOfWeek.valueOf(k)));
     }
 
-    private void initializeCrimesByDayOfMonthBarChart() throws IOException {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-
-        crimesByDayOfMonthBarChart.setLegendVisible(false);
-        crimesByDayOfMonthBarChart.getData().add(series);
-
-        List<CrimeRecord> crimeRecords = RecordReader.readCrimeRecords();
-
-        crimeRecords.parallelStream()
-                .filter(r -> Objects.nonNull(r.date))
-                .map(r -> r.date.getDayOfMonth())
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .forEach((dom, count) ->
-                        series.getData().add(new XYChart.Data<>(dom.toString(), count)));
-
-        series.getData().sort(Comparator.comparingInt(d -> Integer.parseInt(d.getXValue())));
+    private static <T> void initializeChart(final BarChart<String, Number> chart, final Stream<T> recordStream,
+            final Comparator<String> keyComparator) {
+        chart.setLegendVisible(false);
+        chart.getData().add(groupAndCountSeries(recordStream, keyComparator));
     }
 
-    private void initializeCrimesByDayOfWeekBarChart() throws IOException {
+    private static <T> XYChart.Series<String, Number> groupAndCountSeries(final Stream<T> recordStream,
+            final Comparator<String> keyComparator) {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-        crimesByDayOfWeekBarChart.setLegendVisible(false);
-        crimesByDayOfWeekBarChart.getData().add(series);
-
-        List<CrimeRecord> crimeRecords = RecordReader.readCrimeRecords();
-
-        crimeRecords.parallelStream()
-                .filter(r -> Objects.nonNull(r.date))
-                .map(r -> r.date.getDayOfWeek())
+        recordStream
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .forEach((dow, count) ->
-                        series.getData().add(new XYChart.Data<>(dow.toString(), count)));
+                .forEach((e, count) ->
+                        series.getData().add(new XYChart.Data<>(e.toString(), count)));
 
-        series.getData().sort(Comparator.comparing(d -> DayOfWeek.valueOf(d.getXValue())));
+        series.getData().sort((d1, d2) -> keyComparator.compare(d1.getXValue(), d2.getXValue()));
+
+        return series;
     }
 }
