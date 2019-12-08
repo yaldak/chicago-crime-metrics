@@ -9,6 +9,8 @@ import records.CrimeRecord;
 import util.RecordReader;
 
 import java.io.IOException;
+import java.time.Month;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
@@ -49,5 +51,7 @@ public class MainSceneController {
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .forEach((month, count) ->
                         series.getData().add(new XYChart.Data<>(month.toString(), count)));
+
+        series.getData().sort(Comparator.comparing(d -> Month.valueOf(d.getXValue())));
     }
 }
