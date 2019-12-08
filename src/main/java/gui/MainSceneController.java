@@ -4,15 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.MenuBar;
-import util.RecordReader;
+import data.JsonRecordReader;
 
 import java.io.IOException;
-import java.time.DayOfWeek;
-import java.time.Month;
 import java.time.ZonedDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -32,34 +30,24 @@ public class MainSceneController {
 
     @FXML
     public void initialize() throws IOException {
-        List<ZonedDateTime> crimeRecordDates = RecordReader.readCrimeRecords().parallelStream()
-                .filter(r -> Objects.nonNull(r.date))
+        List<ZonedDateTime> crimeDates = JsonRecordReader.fromDefaultSet().readCrimeRecords().parallelStream()
                 .map(r -> r.date)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
-        initializeChart(crimesByMonthBarChart, crimeRecordDates.parallelStream()
-                .map(ZonedDateTime::getMonth), Comparator.comparing(Month::valueOf));
-
-        initializeChart(crimesByDayOfMonthBarChart, crimeRecordDates.parallelStream()
-                .map(ZonedDateTime::getDayOfMonth), Comparator.comparingInt(Integer::parseInt));
-
-        initializeChart(crimesByDayOfWeekBarChart, crimeRecordDates.parallelStream()
-                .map(ZonedDateTime::getDayOfWeek), Comparator.comparing(DayOfWeek::valueOf));
+        initializeChart(crimesByMonthBarChart, crimeDates.parallelStream().map(ZonedDateTime::getMonth));
+        initializeChart(crimesByDayOfMonthBarChart, crimeDates.parallelStream().map(ZonedDateTime::getDayOfMonth));
+        initializeChart(crimesByDayOfWeekBarChart, crimeDates.parallelStream().map(ZonedDateTime::getDayOfWeek));
     }
 
-    private static <T> void initializeChart(final BarChart<String, Number> chart, final Stream<T> recordStream,
-            final Comparator<String> keyComparator) {
-        chart.setLegendVisible(false);
-
+    private static <T> void initializeChart(final BarChart<String, Number> chart, final Stream<T> recordStream) {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
         recordStream
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .forEach((e, count) ->
-                        series.getData().add(new XYChart.Data<>(e.toString(), count)));
+                .collect(Collectors.groupingBy(Function.identity(), TreeMap::new, Collectors.counting()))
+                .forEach((e, c) -> series.getData().add(new XYChart.Data<>(e.toString(), c)));
 
-        series.getData().sort((d1, d2) -> keyComparator.compare(d1.getXValue(), d2.getXValue()));
-
+        chart.setLegendVisible(false);
         chart.getData().add(series);
     }
 }
