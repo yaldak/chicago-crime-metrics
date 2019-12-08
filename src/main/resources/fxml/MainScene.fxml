@@ -47,7 +47,6 @@
                                     <Image url="@../chicago-splash.png" />
                                  </image>
                               </ImageView>
-                              <Text layoutX="25.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Does day of Month affect Crime Rates in Chicago?&lt;b&gt;Exploratory Sentences&lt;/b&gt;1. What crimes happen the most?2. What crimes happen the most at the end of the month?3. Is the difference satistically significantly from other crimes?" wrappingWidth="300.0" />
                            </children>
                         </Pane>
                      </children>
@@ -69,6 +68,38 @@
                      </children></AnchorPane>
             </content>
           </Tab>
+            <Tab text="Day of Month">
+               <content>
+                  <AnchorPane minHeight="500.0" minWidth="800.0">
+                     <children>
+                        <BarChart fx:id="crimesByDayOfMonthBarChart" layoutX="21.0" layoutY="24.0" prefHeight="400.0" prefWidth="729.0" title="Number of Crimes by Day of Month">
+                           <xAxis>
+                              <CategoryAxis label="Day of Month" side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="Number of Crimes" side="LEFT" />
+                           </yAxis>
+                        </BarChart>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Weekly Trends">
+               <content>
+                  <AnchorPane minHeight="500.0" minWidth="800.0">
+                     <children>
+                        <BarChart fx:id="crimesByDayOfWeekBarChart" layoutX="21.0" layoutY="24.0" prefHeight="400.0" prefWidth="729.0" title="Number of Crimes by Day of Week">
+                           <xAxis>
+                              <CategoryAxis label="Day of Week" side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="Number of Crimes" side="LEFT" />
+                           </yAxis>
+                        </BarChart>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
   </children>
