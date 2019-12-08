@@ -10,7 +10,9 @@ import util.RecordReader;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -36,19 +38,19 @@ public class MainSceneController {
     public void initialize() throws IOException {
         // XXX: Is declaring a checked IOException safe here?
 
-        List<CrimeRecord> crimeRecords = RecordReader.readCrimeRecords();
-
-        initializeChart(crimesByMonthBarChart, crimeRecords.parallelStream()
+        List<ZonedDateTime> crimeRecordDates = RecordReader.readCrimeRecords().parallelStream()
                 .filter(r -> Objects.nonNull(r.date))
-                .map(r -> r.date.getMonth()), Comparator.comparing(k -> Month.valueOf(k)));
+                .map(r -> r.date)
+                .collect(Collectors.toList());
 
-        initializeChart(crimesByDayOfMonthBarChart, crimeRecords.parallelStream()
-                .filter(r -> Objects.nonNull(r.date))
-                .map(r -> r.date.getDayOfMonth()), Comparator.comparingInt(k -> Integer.parseInt(k)));
+        initializeChart(crimesByMonthBarChart, crimeRecordDates.parallelStream()
+                .map(ZonedDateTime::getMonth), Comparator.comparing(k -> Month.valueOf(k)));
 
-        initializeChart(crimesByDayOfWeekBarChart, crimeRecords.parallelStream()
-                .filter(r -> Objects.nonNull(r.date))
-                .map(r -> r.date.getDayOfWeek()), Comparator.comparing(k -> DayOfWeek.valueOf(k)));
+        initializeChart(crimesByDayOfMonthBarChart, crimeRecordDates.parallelStream()
+                .map(ZonedDateTime::getDayOfMonth), Comparator.comparingInt(k -> Integer.parseInt(k)));
+
+        initializeChart(crimesByDayOfWeekBarChart, crimeRecordDates.parallelStream()
+                .map(ZonedDateTime::getDayOfWeek), Comparator.comparing(k -> DayOfWeek.valueOf(k)));
     }
 
     private static <T> void initializeChart(final BarChart<String, Number> chart, final Stream<T> recordStream,
