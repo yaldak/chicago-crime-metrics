@@ -1,5 +1,5 @@
 # City of Chicago Data Project
-Investigate [City of Chicago Crime Data](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present-Dashboard/5cd6-ry5g) using object oriented design. <img src = "https://raw.githubusercontent.com/yaldak/graffiti-metrics/master/Capture.PNG" align = "right">  [Image taken from Data.CityOfChicago.org](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present-Dashboard/5cd6-ry5g)
+Investigate [City of Chicago Crime Data](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present-Dashboard/5cd6-ry5g) using object oriented design. <img src = "https://raw.githubusercontent.com/yaldak/graffiti-metrics/master/src/main/resources/chicago-splash.png" align = "right">  [Image taken from Data.CityOfChicago.org](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present-Dashboard/5cd6-ry5g)
 ## Background
 The city of Chicago is notoriously known for its crime and corruption. Some of the biggest crime syndicates have at some point based themselves in Chicago. With that in mind, our team decided to study crime and how it has changed over the years. In general, we want to look at how time affects crime. We want to look at daily totals to see if there are any correlations.
 

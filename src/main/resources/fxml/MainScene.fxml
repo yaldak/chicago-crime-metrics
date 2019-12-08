@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -8,12 +7,19 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainSceneController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainSceneController">
   <children>
-    <MenuBar fx:id="menuBar" prefWidth="392.0" VBox.vgrow="NEVER">
+    <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Help">
           <items>
@@ -22,21 +28,48 @@
         </Menu>
       </menus>
     </MenuBar>
-      <Label text="Metrics">
-         <font>
-            <Font name="System Bold" size="26.0" />
-         </font>
-         <padding>
-            <Insets left="10.0" top="10.0" />
-         </padding>
-      </Label>
-      <BarChart fx:id="crimesPerMonthBarChart" title="Crimes per Month">
-        <xAxis>
-          <CategoryAxis label="Month" side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis label="Crimes" side="LEFT" />
-        </yAxis>
-      </BarChart>
+      <TabPane tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="About">
+            <content>
+              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0">
+                     <children>
+                        <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                           <children>
+                              <Label text="Chicago Crime Metrics">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The city of Chicago is notoriously known for its crime and corruption. Some of the biggest crime syndicates have at some point based themselves in Chicago. With that in mind, our team decided to study crime and how it has changed over the years. In general, we want to look at how time affects crime. We want to look at daily totals to see if there are any correlations." wrappingWidth="700.0" />
+                              <ImageView fitHeight="350.0" fitWidth="294.0" layoutX="454.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../chicago-splash.png" />
+                                 </image>
+                              </ImageView>
+                              <Text layoutX="25.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Does day of Month affect Crime Rates in Chicago?&lt;b&gt;Exploratory Sentences&lt;/b&gt;1. What crimes happen the most?2. What crimes happen the most at the end of the month?3. Is the difference satistically significantly from other crimes?" wrappingWidth="300.0" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Monthly Trends">
+            <content>
+              <AnchorPane minHeight="500.0" minWidth="800.0">
+                     <children>
+                        <BarChart fx:id="crimesByMonthBarChart" layoutX="21.0" layoutY="24.0" prefHeight="400.0" prefWidth="729.0" title="Number of Crimes by Month">
+                          <xAxis>
+                            <CategoryAxis label="Month" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis label="Number of Crimes" side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
   </children>
 </VBox>
