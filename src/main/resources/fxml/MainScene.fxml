@@ -32,7 +32,7 @@
                               <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The city of Chicago is notoriously known for its crime and corruption. Some of the biggest crime syndicates have at some point based themselves in Chicago. With that in mind, our team decided to study crime and how it has changed over the years. In general, we want to look at how time affects crime. We want to look at daily totals to see if there are any correlations." wrappingWidth="700.0" />
                               <ImageView fitHeight="350.0" fitWidth="294.0" layoutX="454.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../chicago-splash.png" />
+                                    <Image url="@../assets/chicago-splash.png" />
                                  </image>
                               </ImageView>
                            </children>

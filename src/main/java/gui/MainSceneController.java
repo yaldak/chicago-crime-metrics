@@ -32,31 +32,25 @@ public class MainSceneController {
 
     @FXML
     public void initialize() throws IOException {
-        // XXX: Is declaring a checked IOException safe here?
-
         List<ZonedDateTime> crimeRecordDates = RecordReader.readCrimeRecords().parallelStream()
                 .filter(r -> Objects.nonNull(r.date))
                 .map(r -> r.date)
                 .collect(Collectors.toList());
 
         initializeChart(crimesByMonthBarChart, crimeRecordDates.parallelStream()
-                .map(ZonedDateTime::getMonth), Comparator.comparing(k -> Month.valueOf(k)));
+                .map(ZonedDateTime::getMonth), Comparator.comparing(Month::valueOf));
 
         initializeChart(crimesByDayOfMonthBarChart, crimeRecordDates.parallelStream()
-                .map(ZonedDateTime::getDayOfMonth), Comparator.comparingInt(k -> Integer.parseInt(k)));
+                .map(ZonedDateTime::getDayOfMonth), Comparator.comparingInt(Integer::parseInt));
 
         initializeChart(crimesByDayOfWeekBarChart, crimeRecordDates.parallelStream()
-                .map(ZonedDateTime::getDayOfWeek), Comparator.comparing(k -> DayOfWeek.valueOf(k)));
+                .map(ZonedDateTime::getDayOfWeek), Comparator.comparing(DayOfWeek::valueOf));
     }
 
     private static <T> void initializeChart(final BarChart<String, Number> chart, final Stream<T> recordStream,
             final Comparator<String> keyComparator) {
         chart.setLegendVisible(false);
-        chart.getData().add(groupAndCountSeries(recordStream, keyComparator));
-    }
 
-    private static <T> XYChart.Series<String, Number> groupAndCountSeries(final Stream<T> recordStream,
-            final Comparator<String> keyComparator) {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
         recordStream
@@ -66,6 +60,6 @@ public class MainSceneController {
 
         series.getData().sort((d1, d2) -> keyComparator.compare(d1.getXValue(), d2.getXValue()));
 
-        return series;
+        chart.getData().add(series);
     }
 }
