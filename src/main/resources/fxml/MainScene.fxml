@@ -2,6 +2,7 @@
 
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -68,6 +69,22 @@
                               <NumberAxis label="Number of Crimes" side="LEFT" />
                            </yAxis>
                         </BarChart>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Day of Month 2">
+               <content>
+                  <AnchorPane minHeight="500.0" minWidth="800.0">
+                     <children>
+                        <LineChart fx:id="crimesByDayOfMonthLineChart" layoutX="14.0" layoutY="14.0" prefHeight="410.0" prefWidth="729.0" title="Month-by-Month">
+                          <xAxis>
+                            <CategoryAxis label="Day of Month" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis label="Number of Crimes" side="LEFT" />
+                          </yAxis>
+                        </LineChart>
                      </children>
                   </AnchorPane>
                </content>
