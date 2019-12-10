@@ -77,7 +77,7 @@ public class MainSceneController {
         chart.getData().add(series);
     }
 
-    private static <T> void initializeCrimesByDayOfMonthLineChart(final LineChart<Number, Number> chart,
+    private static void initializeCrimesByDayOfMonthLineChart(final LineChart<Number, Number> chart,
             final List<ZonedDateTime> crimeDates) {
         List<Month> distinctMonths = crimeDates.parallelStream()
                 .map(ZonedDateTime::getMonth)
