@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainSceneController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainSceneController">
   <children>
       <TabPane tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -30,13 +30,13 @@
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The city of Chicago is notoriously known for its crime and corruption. Some of the biggest crime syndicates have at some point based themselves in Chicago. With that in mind, our team decided to study crime and how it has changed over the years. In general, we want to look at how time affects crime. We want to look at daily totals to see if there are any correlations." wrappingWidth="700.0" />
-                              <ImageView fitHeight="350.0" fitWidth="294.0" layoutX="454.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+                              <Text layoutX="26.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The goal of our project was to analyze the data related to the City of Chicago’s crime statistics. The questions we sought to answer were: 1) Does crime follow any particular pattern within a month?  2) Does crime follow any patterns from month to month? 3) Do the upcoming holidays lead to any noticeable increase in theft? To answer these questions we applied several types of data analysis to the Crimes - 2001 to present data set from the city of Chicago’s data portal. The data analysis was to be performed programmatically using a combination of object oriented and functional techniques in the Java language to process the data and generate results to be displayed.  We elected to focus on the data from September-November of 2019 because many of the rates from that past are so high, they skewed crime trends upwards despite the fact that reported crime has been decreasing since the existence of this dataset." wrappingWidth="327.9999694824219" />
+                              <ImageView fitHeight="350.0" fitWidth="294.0" layoutX="391.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../assets/chicago-splash.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="477.0" layoutY="421.0" text="Image source: data.cityofchicago.org" />
+                              <Label layoutX="441.0" layoutY="372.0" text="Image source: data.cityofchicago.org" />
                            </children>
                         </Pane>
                      </children>
