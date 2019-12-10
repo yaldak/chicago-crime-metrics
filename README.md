@@ -21,12 +21,11 @@ The city of Chicago is notoriously known for its crime and corruption. Some of t
 
 ## Requirements
 ### Content to Implement - How we will implement it
-- [ ] Interfaces - Functional Interface (maybe with Binary)
-- [ ] Binary I/O - Saving plots
+- [x] Interfaces - Reader API
+- [ ] Binary I/O - 
 - [x] Generics - Generating graph data
-- [ ] Collections - 
-- [x] Nested Classes - CrimeRecord
-- [ ] Enums -
+- [x] Collections - With Streams (MainSceneController)
+- [x] Nested Classes/Enums - We used Nested Classes
 - [x] Streams - Reading the data
 - [x] Lambdas - Used in Streams 
 - [x] GUI - JavaFx

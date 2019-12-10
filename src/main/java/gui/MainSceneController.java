@@ -1,17 +1,16 @@
 package gui;
 
+import data.JsonRecordReader;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.MenuBar;
-import data.JsonRecordReader;
 import records.CrimeRecord;
 
 import java.io.IOException;
 import java.time.Month;
 import java.time.ZonedDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
