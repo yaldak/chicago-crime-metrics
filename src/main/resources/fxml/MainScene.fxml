@@ -58,6 +58,22 @@
                   </AnchorPane>
                </content>
             </Tab>
+            <Tab text="Monthly Trends (Theft)">
+               <content>
+                  <AnchorPane minHeight="500.0" minWidth="800.0">
+                     <children>
+                        <LineChart fx:id="crimesByDayOfMonthTheftLineChart" layoutX="14.0" layoutY="14.0" prefHeight="410.0" prefWidth="729.0" title="Month-by-Month (Theft)">
+                           <xAxis>
+                              <NumberAxis autoRanging="false" label="Day of Month" lowerBound="1.0" side="BOTTOM" tickUnit="1.0" upperBound="31.0" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="Number of Crimes" side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
           <Tab text="Count By Month">
             <content>
               <AnchorPane minHeight="500.0" minWidth="800.0">

@@ -34,6 +34,9 @@ public class MainSceneController {
     private LineChart<Number, Number> crimesByDayOfMonthLineChart;
 
     @FXML
+    private LineChart<Number, Number> crimesByDayOfMonthTheftLineChart;
+
+    @FXML
     private BarChart<String, Number> crimesByDayOfWeekBarChart;
 
     @FXML
@@ -58,6 +61,10 @@ public class MainSceneController {
                 .filter(Objects::nonNull));
 
         initializeCrimesByDayOfMonthLineChart(crimesByDayOfMonthLineChart, crimeDates);
+        initializeCrimesByDayOfMonthLineChart(crimesByDayOfMonthTheftLineChart, crimeRecords.parallelStream()
+                .filter(r -> "THEFT".equals(r.primaryType))
+                .map(r -> r.date)
+                .collect(Collectors.toList()));
     }
 
     private static <T> void initializeBarChart(final BarChart<String, Number> chart, final Stream<T> recordStream) {
