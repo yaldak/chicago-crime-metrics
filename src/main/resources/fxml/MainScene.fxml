@@ -36,6 +36,7 @@
                                     <Image url="@../assets/chicago-splash.png" />
                                  </image>
                               </ImageView>
+                              <Label layoutX="477.0" layoutY="421.0" text="Image source: data.cityofchicago.org" />
                            </children>
                         </Pane>
                      </children>
