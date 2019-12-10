@@ -42,7 +42,23 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Monthly Trends">
+            <Tab text="Monthly Trends">
+               <content>
+                  <AnchorPane minHeight="500.0" minWidth="800.0">
+                     <children>
+                        <LineChart fx:id="crimesByDayOfMonthLineChart" layoutX="14.0" layoutY="14.0" prefHeight="410.0" prefWidth="729.0" title="Month-by-Month">
+                          <xAxis>
+                            <NumberAxis autoRanging="false" label="Day of Month" lowerBound="1.0" side="BOTTOM" tickUnit="1.0" upperBound="31.0" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis label="Number of Crimes" side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+          <Tab text="Count By Month">
             <content>
               <AnchorPane minHeight="500.0" minWidth="800.0">
                      <children>
@@ -57,7 +73,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Day of Month">
+            <Tab text="Count By Day of Month">
                <content>
                   <AnchorPane minHeight="500.0" minWidth="800.0">
                      <children>
@@ -73,23 +89,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Day of Month 2">
-               <content>
-                  <AnchorPane minHeight="500.0" minWidth="800.0">
-                     <children>
-                        <LineChart fx:id="crimesByDayOfMonthLineChart" layoutX="14.0" layoutY="14.0" prefHeight="410.0" prefWidth="729.0" title="Month-by-Month">
-                          <xAxis>
-                            <CategoryAxis label="Day of Month" side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis label="Number of Crimes" side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab text="Weekly Trends">
+            <Tab text="Count By Day of Week">
                <content>
                   <AnchorPane minHeight="500.0" minWidth="800.0">
                      <children>
@@ -105,7 +105,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="By Type">
+            <Tab text="Count By Type">
                <content>
                   <AnchorPane minHeight="500.0" minWidth="800.0">
                      <children>

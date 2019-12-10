@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class JsonRecordReader implements RecordReader {
-    public static final String DEFAULT_CRIME_RECORDS = "/data/crime-50k.json";
+    public static final String DEFAULT_CRIME_RECORDS = "/data/crime-80k.json";
 
     private Reader reader;
 

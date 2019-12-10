@@ -31,7 +31,7 @@ public class MainSceneController {
     private BarChart<String, Number> crimesByDayOfMonthBarChart;
 
     @FXML
-    private LineChart<String, Number> crimesByDayOfMonthLineChart;
+    private LineChart<Number, Number> crimesByDayOfMonthLineChart;
 
     @FXML
     private BarChart<String, Number> crimesByDayOfWeekBarChart;
@@ -41,11 +41,13 @@ public class MainSceneController {
 
     @FXML
     public void initialize() throws IOException {
-        List<CrimeRecord> crimeRecords = JsonRecordReader.fromDefaultSet().readCrimeRecords();
+        List<CrimeRecord> crimeRecords = JsonRecordReader.fromDefaultSet().readCrimeRecords().parallelStream()
+                .filter(r -> Objects.nonNull(r.date))
+                .filter(r -> r.date.getMonth().getValue() >= 9 && r.date.getMonth().getValue() <= 11)
+                .collect(Collectors.toList());// September - October only;
 
         List<ZonedDateTime> crimeDates = crimeRecords.parallelStream()
                 .map(r -> r.date)
-                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
         initializeBarChart(crimesByMonthBarChart, crimeDates.parallelStream().map(ZonedDateTime::getMonth));
@@ -69,7 +71,7 @@ public class MainSceneController {
         chart.getData().add(series);
     }
 
-    private static <T> void initializeCrimesByDayOfMonthLineChart(final LineChart<String, Number> chart,
+    private static <T> void initializeCrimesByDayOfMonthLineChart(final LineChart<Number, Number> chart,
             final List<ZonedDateTime> crimeDates) {
         List<Month> distinctMonths = crimeDates.parallelStream()
                 .map(ZonedDateTime::getMonth)
@@ -77,24 +79,21 @@ public class MainSceneController {
                 .sorted()
                 .collect(Collectors.toList());
 
-        Map<Month, XYChart.Series<String, Number>> seriesByMonth = distinctMonths.stream()
+        Map<Month, XYChart.Series<Number, Number>> seriesByMonth = distinctMonths.stream()
                 .collect(Collectors.toMap(Function.identity(), v -> {
-                    XYChart.Series<String, Number> series = new XYChart.Series<>();
+                    XYChart.Series<Number, Number> series = new XYChart.Series<>();
                     series.setName(v.toString());
 
                     return series;
-                }));
+                }, (v1, v2) -> v1, TreeMap::new));
 
-        crimeDates.parallelStream()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .forEach((d, count) ->
-                        seriesByMonth.get(d.getMonth()).getData()
-                                .add(new XYChart.Data<>(String.valueOf(d.getDayOfMonth()), count)));
+        Map<Month, List<ZonedDateTime>> crimeDatesByMonth = crimeDates.parallelStream()
+                .collect(Collectors.groupingBy(ZonedDateTime::getMonth));
 
-        seriesByMonth.values().stream()
-                .forEach(s -> s.getData().sort(Comparator.comparingInt(d -> Integer.parseInt(d.getXValue()))));
+        crimeDatesByMonth.forEach((month, dates) -> dates.stream()
+                .collect(Collectors.groupingBy(ZonedDateTime::getDayOfMonth, TreeMap::new, Collectors.counting()))
+                .forEach((dom, count) -> seriesByMonth.get(month).getData().add(new XYChart.Data<>(dom, count))));
 
-        seriesByMonth.values().stream()
-                .forEach(s -> chart.getData().add(s));
+        seriesByMonth.values().forEach(s -> chart.getData().add(s));
     }
 }
